@@ -1,0 +1,22 @@
+phases:
+  install:
+    runtime-versions:
+      java: openjdk8
+    commands:
+      # Upgrade AWS CLI to the latest version
+      - pip install --upgrade awscli
+  build:
+    commands:
+      - echo Build Starting on `date`
+      - chmod +x ./gradlew
+      - ./gradlew build -PexcludeTests=**/*Test*
+      - pwd
+  post_build:
+    commands:
+      - pwd
+      - unzip build/libs/order-0.0.1-DALBIT-ORDER.war
+artifacts:
+  type: zip
+  files:
+    - 'WEB-INF/**/*'
+    - 'META-INF/**/*'
