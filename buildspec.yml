@@ -16,7 +16,6 @@ phases:
   post_build:
     commands:
       - pwd
-      - chmod -R 757 /var/log/tomcat/
       - unzip build/libs/order-0.0.1-DALBIT-ORDER.war
 artifacts:
   type: zip
