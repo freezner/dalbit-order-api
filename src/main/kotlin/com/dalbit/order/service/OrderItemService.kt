@@ -4,6 +4,7 @@ import com.dalbit.order.domain.OrderItem
 import com.dalbit.order.domain.OrderItemGroup
 import com.dalbit.order.repository.OrderItemListRepository
 import com.dalbit.order.repository.ScodeRepository
+import mu.KLogging
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,6 +12,7 @@ class OrderItemService(
     val orderItemListRepository: OrderItemListRepository,
     val scodeRepository: ScodeRepository
 ) {
+    companion object: KLogging()
 
     fun getOrderItemList(displayYn: String = "Y"): List<OrderItemGroup> {
         val orderItemListEntity = orderItemListRepository.findAllByItemDisplayYn(displayYn)
