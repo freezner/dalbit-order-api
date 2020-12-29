@@ -4,9 +4,6 @@
 <configuration scan="true" scanPeriod="30 seconds">
 
     <!-- setting -->
-    <springProfile name="default">
-        <property resource="application.properties"/>
-    </springProfile>
     <springProfile name="dev">
         <property resource="application-dev.properties"/>
     </springProfile>
