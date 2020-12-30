@@ -8,6 +8,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/item")
+@CrossOrigin(origins = ["https://order.moonlgalu.com", "https://order-stage.moonlgalu.com", "http://localhost:3000"])
 class OrderItemsController(
     val orderItemService: OrderItemService
 ) {
