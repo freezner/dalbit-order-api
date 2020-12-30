@@ -11,6 +11,7 @@ import javax.persistence.*
 class OrderItemListEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SEQ")
     var seq: Long = 0L
 
@@ -45,4 +46,7 @@ class OrderItemListEntity {
     @LastModifiedDate
     @Column(name = "UPDATE_DATE")
     var updateDate: LocalDateTime = LocalDateTime.now()
+
+    @Column(name = "DELETE_DATE")
+    var deleteDate: LocalDateTime? = null
 }
