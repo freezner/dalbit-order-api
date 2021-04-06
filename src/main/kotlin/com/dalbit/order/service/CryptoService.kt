@@ -1,33 +1,31 @@
 package com.dalbit.order.service
 
-import com.sun.org.apache.xml.internal.security.utils.Base64
+import org.apache.tomcat.util.codec.binary.Base64
 import org.springframework.stereotype.Service
-import org.springframework.util.Base64Utils
 import java.security.*
-import java.util.*
 import javax.crypto.*
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 @Service
 class CryptoService {
-    private val iv: String = "0000000000000001"
-    private val keySpec: Key = SecretKeySpec(byteArrayOf(16), "AES")
+    private val iv: String = "sksmsqkrgudwlsdlek".substring(0, 16)
+    private val keySpec: Key = SecretKeySpec(iv.toByteArray(), "AES")
+    private val cipher: Cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
 
     fun encrypt(input: String): String {
-        val c: Cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
-        c.init(Cipher.ENCRYPT_MODE, keySpec, IvParameterSpec(iv.toByteArray()))
-        val encrypted = c.doFinal(input.toByteArray())
-        val enString = Base64Utils.encode(encrypted)
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec, IvParameterSpec(iv.toByteArray()))
 
-        return enString.toString()
+        return Base64
+            .encodeBase64String(cipher.doFinal(input.toByteArray()))
+            .toString()
     }
 
     fun decrypt(input: String): String {
-        val c: Cipher = Cipher.getInstance("AES/CBC/PKC5Padding")
-        c.init(Cipher.DECRYPT_MODE, keySpec, IvParameterSpec(iv.toByteArray()))
-        val byteStr = Base64Utils.decode(input.toByteArray())
+        cipher.init(Cipher.DECRYPT_MODE, keySpec, IvParameterSpec(iv.toByteArray()))
 
-        return c.doFinal(byteStr).toString()
+        return cipher
+            .doFinal(Base64.decodeBase64(input))
+            .decodeToString()
     }
 }
