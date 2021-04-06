@@ -8,6 +8,7 @@ data class OrderItemGroup(
 )
 
 data class OrderItem(
+    var itemId: Long,
     var name: String,
     var priceMin: Int?,
     var price: Int,

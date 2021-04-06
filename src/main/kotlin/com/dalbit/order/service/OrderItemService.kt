@@ -38,6 +38,7 @@ class OrderItemService(
                             else ""
 
                         OrderItem(
+                            itemId = it.seq,
                             name = it.itemName,
                             priceMin = 0,
                             price = it.itemPrice,
